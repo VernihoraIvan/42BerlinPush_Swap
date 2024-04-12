@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:50:09 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/12 18:32:22 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/12 19:02:19 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ int		check_input(char **str);
 void	free_array(char **array);
 int		is_input_correct(char *str_n);
 int		check_duplicat(t_stack *lst, int c);
+int		is_stack_sorted(t_stack *stack);
 #endif
