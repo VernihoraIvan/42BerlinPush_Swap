@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:50:09 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/12 14:56:17 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:14:06 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,18 @@
 #include <limits.h>
 #include "libft/libft.h"
 #include "printf/ft_printf.h"
+#include <stdio.h>
 
-typedef struct s_stack_node
+typedef struct s_stack
 {
 	int				data;
-	struct s_stack_node	*next;
-	struct s_stack_node	*prev;
-}	t_stack_node;
+	struct s_stack	*next;
+	struct s_stack	*prev;
+}	t_stack;
+
+t_stack	*find_last(t_stack *lst);
+void	init_stack(t_stack **stack, char **array);
+void	append_node(t_stack **stack, int c);
+void	free_stack(t_stack **stack);
 
 #endif

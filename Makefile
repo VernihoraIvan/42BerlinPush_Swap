@@ -6,7 +6,7 @@
 #    By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 14:56:28 by iverniho          #+#    #+#              #
-#    Updated: 2024/04/12 14:58:08 by iverniho         ###   ########.fr        #
+#    Updated: 2024/04/12 18:13:24 by iverniho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = cc
 NAME = push_swap
 
 CFLAGS = -Wall -Wextra -Werror
-SRC = push_swap.c
+SRC = push_swap.c stack_utils.c
 LIB = libft/libft.a
 PRINTF := printf/libftprintf.a
 OBJ = $(SRC:.c=.o)
