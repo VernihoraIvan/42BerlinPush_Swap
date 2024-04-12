@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:11:28 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/12 18:13:07 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:36:40 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ void	init_stack(t_stack **stack, char **array)
 	while (array[i])
 	{
 		c = ft_atoi(array[i]);
+		if (check_duplicat(*stack, c) == 0)
+		{
+			free_stack(stack);
+			return ;
+		}
 		append_node(stack, c);
 		i++;
 	}
@@ -75,4 +80,17 @@ void	free_stack(t_stack **stack)
 		*stack = (*stack)->next;
 		free(temp);
 	}
+}
+
+int	check_duplicat(t_stack *lst, int c)
+{
+	if (lst == NULL)
+		return (1);
+	while (lst)
+	{
+		if (lst->data == c)
+			return (ft_printf("Error\nNo duplicats allowed\n"), 0);
+		lst = lst->next;
+	}
+	return (1);
 }
