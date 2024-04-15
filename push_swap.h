@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:50:09 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/15 14:21:48 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/15 14:48:46 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,14 @@
 
 typedef struct s_stack
 {
-	int data;
-	struct s_stack *next;
-	struct s_stack *prev;
+	int				data;
+	int				index;
+	int				push_cost;
+	int				is_above_median;
+	int				is_cheapest;
+	struct s_stack	*target;
+	struct s_stack	*next;
+	struct s_stack	*prev;
 } t_stack;
 
 t_stack	*find_last(t_stack *lst);

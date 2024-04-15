@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 13:32:44 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/15 14:21:53 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/15 17:45:09 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,120 @@
 
 t_stack *find_max_number(t_stack *stack)
 {
-    int max;
-    t_stack *max_node;
+	int max;
+	t_stack *max_node;
 
-    if (!stack)
-        return (NULL);
-    max = INT_MIN;
-    while (stack)
-    {
-        printf("stack->data %d\n", stack->data);
-        if (stack->data > max)
-        {
-            max = stack->data;
-            max_node = stack;
-        }
-        stack = stack->next;
-    }
-    return (max_node);
+	if (!stack)
+		return (NULL);
+	max = INT_MIN;
+	while (stack)
+	{
+		printf("stack->data %d\n", stack->data);
+		if (stack->data > max)
+		{
+			max = stack->data;
+			max_node = stack;
+		}
+		stack = stack->next;
+	}
+	return (max_node);
 }
 
-// void sort_stacks(t_stack **a, t_stack **b)
-// {
-//     int len_a;
+int	stack_len(t_stack *stack)
+{
+	int	count;
 
-//     len_a = check_input(*a);
-//     if (len_a-- > 3 && !is_stack_sorted(*a))
-//         pb(b, a);
-//     if (len_a-- > 3 && !is_stack_sorted(*a))
-//         pb(b, a);
-//     while (len_a-- > 3 && !is_stack_sorted(*a))
-//     {
-//         init_nodes_a(*a, *b);
-//         move_a_to_b(a, b);
-//     }
-//     sort_three(a);
-//     while (*b)
-//     {
-//         init_nodes_b(*a, *b);
-//         move_b_to_a(a, b);
-//     }
-//     current_index(*a);
-//     min_on_top(a);
-// }
+	if (!stack)
+		return (0);
+	count = 0;
+	while (stack)
+	{
+		stack = stack->next;
+		count++;
+	}
+	return (count);
+}
+
+void current_index(t_stack *a)
+{
+	int i;
+	int median;
+
+	i = 0;
+	if (!a)
+		return ;
+	median = stack_len(a) / 2;
+	while (a)
+	{
+		a->index = i;
+		if (i <= median)
+			a->is_above_median = 1;
+		else
+			a->is_above_median = 0;
+		i++;
+	}
+}
+
+static void	set_target_a(t_stack *a, t_stack *b)
+{
+	t_stack	*current_b;
+	t_stack	*target;
+	long			best_match_index;
+
+	while (a)
+	{
+		best_match_index = LONG_MIN;
+		current_b = b;
+		while (current_b)
+		{
+			if (current_b->data < a->data
+				&& current_b->data > best_match_index)
+			{
+				best_match_index = current_b->data;
+				target = current_b;
+			}
+			current_b = current_b->next;
+		}
+		if (best_match_index == LONG_MIN)
+			a->target = find_max(b);
+		else
+			a->target = target;
+		a = a->next;
+    }
+}
+
+void create_node_a(t_stack **a, t_stack **b)
+{
+	current_index(a);
+	current_index(b);
+    set_target_a(a, b);
+
+}
+
+void sort_stacks(t_stack **a, t_stack **b)
+{
+
+	int len_a;
+
+	len_a = check_input(*a);
+	if (len_a-- > 3 && !is_stack_sorted(*a))
+		pb(b, a);
+	if (len_a-- > 3 && !is_stack_sorted(*a))
+		pb(b, a);
+	while (len_a-- > 3 && !is_stack_sorted(*a))
+	{
+		create_node_a(*a, *b);
+		move_a_to_b(a, b);
+	}
+	sort_three(a);
+	while (*b)
+	{
+		init_nodes_b(*a, *b);
+		move_b_to_a(a, b);
+	}
+	current_index(*a);
+	min_on_top(a);
+}
 
 void sort_three_el(t_stack **a)
 {

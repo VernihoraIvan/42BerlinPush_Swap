@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:50:12 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/15 14:30:34 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/15 14:31:32 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,18 @@ int main(int argc, char **argv)
 
 	init_stack(&a, array);
 	printf("len %d\n", len);
-	// if (!is_stack_sorted(a))
-	// {
-	// 	if (len == 2)
-	// 		sa(&a);
-	// 	if (len == 3)
-	// 		sort_three_el(&a);
-	// 	// printf("no\n");
-	// 	// else
-	// 	// sort_stacks(&a, &b);
-	// }
-	// print_stack(a, len - 1);
-	// print_stack(b, 1);
+	if (!is_stack_sorted(a))
+	{
+		if (len == 2)
+			sa(&a);
+		if (len == 3)
+			sort_three_el(&a);
+		// printf("no\n");
+		// else
+		// sort_stacks(&a, &b);
+	}
+	print_stack(a, len - 1);
+	print_stack(b, 1);
 	free_array(array);
 
 	free_stack(&a);
