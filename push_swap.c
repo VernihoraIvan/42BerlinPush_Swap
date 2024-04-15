@@ -6,49 +6,50 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:50:12 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/12 19:04:11 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/14 17:34:58 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-
-void	print_stack(t_stack *lst)
+void print_stack(t_stack *lst, int s)
 {
+	int i;
+
+	i = 0;
 	if (lst == NULL)
-		return ;
-	while (lst)
+		return;
+	while (i < s)
 	{
-		printf("lst_data %d\n",lst->data);
+		printf("element: %d\n", lst->data);
 		lst = lst->next;
+		i++;
 	}
 }
 
-int	is_stack_sorted(t_stack *stack)
+int is_stack_sorted(t_stack *stack)
 {
 	if (!stack)
-		return (1);
+		return (ft_printf("no stack\n"), 0);
 	while (stack->next)
 	{
 		if (stack->data > stack->next->data)
-			return (1);
+			return (ft_printf("not sorted\n"), 0);
 		stack = stack->next;
 	}
-	return (0);
+	return (ft_printf("sorted\n"), 1);
 }
 
-
-
-int	main(int argc, char **argv)
+int main(int argc, char **argv)
 {
-	t_stack	*a;
-	t_stack	*b;
-	int		len;
-	char	**array;
+	t_stack *a;
+	// t_stack *b;
+	int len;
+	char **array;
 
 	len = 0;
 	a = NULL;
-	b = NULL;
+	// b = NULL;
 	array = NULL;
 	if (argc < 2)
 		return (0);
@@ -57,15 +58,22 @@ int	main(int argc, char **argv)
 	len = check_input(array);
 	if (!len)
 		return (ft_printf("Error\n"), 0);
-	if (is_stack_sorted(a))
-		return (printf("yes\n"), 1);
-	else
-		return (printf("no\n"), 0);
+
 	init_stack(&a, array);
-	print_stack(a);
+	printf("len %d\n", len);
+	if (!is_stack_sorted(a))
+	{
+		if (len == 2)
+			sa(&a);
+		if (len == 3)
+			sort_three_el(&a);
+		// printf("no\n");
+		// else
+		// sort_stacks(&a, &b);
+	}
+	print_stack(a, len);
 	free_array(array);
 	free_stack(&a);
 
 	return (0);
 }
-
