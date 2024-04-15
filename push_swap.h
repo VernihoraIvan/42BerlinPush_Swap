@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:50:09 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/14 17:15:13 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/15 14:21:48 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,26 @@ typedef struct s_stack
 	struct s_stack *prev;
 } t_stack;
 
-t_stack *find_last(t_stack *lst);
-void init_stack(t_stack **stack, char **array);
-void append_node(t_stack **stack, int c);
-void free_stack(t_stack **stack);
-int check_input(char **str);
-void free_array(char **array);
-int is_input_correct(char *str_n);
-int check_duplicat(t_stack *lst, int c);
-int is_stack_sorted(t_stack *stack);
-void sa(t_stack **a);
-void sb(t_stack **b);
-void ss(t_stack **a, t_stack **b);
-// void sort_stacks(t_stack **a, t_stack **b);
-void sort_three_el(t_stack **a);
-void ra(t_stack **a);
-void rb(t_stack **b);
-void rr(t_stack **a, t_stack **b);
-void rra(t_stack **a);
-void rrb(t_stack **b);
-void rrr(t_stack **a, t_stack **b);
+t_stack	*find_last(t_stack *lst);
+void	init_stack(t_stack **stack, char **array);
+void	append_node(t_stack **stack, int c);
+void	free_stack(t_stack **stack);
+int		check_input(char **str);
+void	free_array(char **array);
+int		is_input_correct(char *str_n);
+int		check_duplicat(t_stack *lst, int c);
+int		is_stack_sorted(t_stack *stack);
+void	sa(t_stack **a);
+void	sb(t_stack **b);
+void	ss(t_stack **a, t_stack **b);
+// void	sort_stacks(t_stack **a, t_stack **b);
+void	sort_three_el(t_stack **a);
+void	ra(t_stack **a);
+void	rb(t_stack **b);
+void	rr(t_stack **a, t_stack **b);
+void	rra(t_stack **a);
+void	rrb(t_stack **b);
+void	rrr(t_stack **a, t_stack **b);
+void	pa(t_stack **a, t_stack **b);
+void	pb(t_stack **a, t_stack **b);
 #endif

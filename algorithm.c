@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 13:32:44 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/14 17:34:23 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/15 14:21:53 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ t_stack *find_max_number(t_stack *stack)
 
 void sort_three_el(t_stack **a)
 {
-    t_stack *biggest_node;
+    t_stack *biggest;
 
-    biggest_node = find_max_number(*a);
-    printf("biggest node %d\n", biggest_node->data);
-    if (biggest_node == *a)
+    biggest = find_max_number(*a);
+    printf("biggest %d\n", biggest->data);
+    if (biggest == *a)
         ra(a);
-    else if ((*a)->next == biggest_node)
+    else if ((*a)->next == biggest)
         rra(a);
     if ((*a)->data > (*a)->next->data)
         sa(a);
