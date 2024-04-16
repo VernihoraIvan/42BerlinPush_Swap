@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 13:32:44 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/16 15:16:10 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:10:17 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,12 +116,32 @@ static void	cost_analysis_a(t_stack *a, t_stack *b)
 	}
 }
 
+static void	define_cheapest(t_stack *a)
+{
+	int		cheapest_cost;
+	t_stack	*cheapest_node;
+	if (!a)
+		return ;
+	cheapest_cost = INT_MAX;
+	while (a)
+	{
+		if (a->push_cost < cheapest_cost)
+		{
+			cheapest_cost = a->push_cost;
+			cheapest_node = a;
+		}
+		a = a->next;
+	}
+	cheapest_node->is_cheapest = 1;
+}
+
 void create_node_a(t_stack **a, t_stack **b)
 {
 	current_index(a);
 	current_index(b);
 	set_target_a(a, b);
 	calc_pushcost_a(a, b);
+	define_cheapest(a);
 }
 
 void sort_stacks(t_stack **a, t_stack **b)
