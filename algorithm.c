@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 13:32:44 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/15 17:45:09 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:16:10 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,35 @@ static void	set_target_a(t_stack *a, t_stack *b)
 		else
 			a->target = target;
 		a = a->next;
-    }
+	}
+}
+
+static void	cost_analysis_a(t_stack *a, t_stack *b)
+{
+	int	len_a;
+	int	len_b;
+
+	len_a = stack_len(a);
+	len_b = stack_len(b);
+	while (a)
+	{
+		a->push_cost = a->index;
+		if ((a->is_above_median) == 0)
+			a->push_cost = len_a - a->index;
+		if (a->target->is_above_median == 1)
+			a->push_cost += a->target->index;
+		else
+			a->push_cost += len_b - a->target->index;
+		a = a->next;
+	}
 }
 
 void create_node_a(t_stack **a, t_stack **b)
 {
 	current_index(a);
 	current_index(b);
-    set_target_a(a, b);
-
+	set_target_a(a, b);
+	calc_pushcost_a(a, b);
 }
 
 void sort_stacks(t_stack **a, t_stack **b)
