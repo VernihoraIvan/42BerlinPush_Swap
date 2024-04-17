@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:11:28 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/12 18:36:40 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:18:50 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ void	append_node(t_stack **stack, int c)
 	t_stack	*new;
 	t_stack	*last;
 
+	if (!stack)
+		return ;
 	new = (t_stack *)malloc(sizeof(t_stack));
 	if (!new)
 		return ;
 	new->next = NULL;
 	new->data = c;
-	printf("new->data = %d\n", new->data);
+	// printf("new->data = %d\n", new->data);
 	if (!(*stack))
 	{
 		*stack = new;

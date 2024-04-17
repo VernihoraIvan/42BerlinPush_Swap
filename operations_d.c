@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:02:56 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/15 14:25:19 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:35:46 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,23 @@ static void	push(t_stack **dst, t_stack **src)
 		return ;
 	tmp = *src;
 	*src = (*src)->next;
+	if (*src)
+		(*src)->prev = NULL;
 	tmp->prev = NULL;
 	if (!*dst)
 	{
 		*dst = tmp;
 		tmp->next = NULL;
+
 	}
 	else
 	{
-		tmp->next=*dst;
-		tmp->next->prev=tmp;
+		tmp->next = *dst;
+		tmp->next->prev = tmp;
 		*dst = tmp;
-		// (*dst)->prev = tmp;
-		// (*dst)->prev->next = *dst;
-		// *dst = tmp;
+
 	}
-	printf("test\n");
+
 }
 
 void	pa(t_stack **a, t_stack **b)
@@ -44,7 +45,7 @@ void	pa(t_stack **a, t_stack **b)
 	ft_printf("pa\n");
 }
 
-void	pb(t_stack **a, t_stack **b)
+void	pb(t_stack **b, t_stack **a)
 {
 	push(b, a);
 	ft_printf("pb\n");

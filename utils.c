@@ -6,25 +6,23 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:15:29 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/12 18:16:00 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:50:31 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	check_input(char **str)
+int	check_input(t_stack *stack)
 {
 	int	len;
-	int	i;
 
-	i = 0;
+	if (!stack)
+		return (0);
 	len = 0;
-	while (str[i])
+	while (stack)
 	{
-		if (is_input_correct(str[i]) == 0)
-			return (0);
+		stack = stack->next;
 		len++;
-		i++;
 	}
 	return (len);
 }

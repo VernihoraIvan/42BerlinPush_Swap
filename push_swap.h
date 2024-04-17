@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:50:09 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/15 14:48:46 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:53:14 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_stack	*find_last(t_stack *lst);
 void	init_stack(t_stack **stack, char **array);
 void	append_node(t_stack **stack, int c);
 void	free_stack(t_stack **stack);
-int		check_input(char **str);
+int		check_input(t_stack *stack);
 void	free_array(char **array);
 int		is_input_correct(char *str_n);
 int		check_duplicat(t_stack *lst, int c);
@@ -42,7 +42,7 @@ int		is_stack_sorted(t_stack *stack);
 void	sa(t_stack **a);
 void	sb(t_stack **b);
 void	ss(t_stack **a, t_stack **b);
-// void	sort_stacks(t_stack **a, t_stack **b);
+void	sort_stacks(t_stack **a, t_stack **b);
 void	sort_three_el(t_stack **a);
 void	ra(t_stack **a);
 void	rb(t_stack **b);
@@ -52,4 +52,7 @@ void	rrb(t_stack **b);
 void	rrr(t_stack **a, t_stack **b);
 void	pa(t_stack **a, t_stack **b);
 void	pb(t_stack **a, t_stack **b);
+int		stack_len(t_stack *stack);
+void	print_stack(t_stack *lst, int s);
+t_stack	*find_min(t_stack *a);
 #endif

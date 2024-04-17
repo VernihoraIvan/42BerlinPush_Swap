@@ -6,13 +6,13 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 13:32:44 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/17 13:31:08 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:54:54 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack *find_max_number(t_stack *stack)
+t_stack	*find_max_number(t_stack *stack)
 {
 	int max;
 	t_stack *max_node;
@@ -22,7 +22,6 @@ t_stack *find_max_number(t_stack *stack)
 	max = INT_MIN;
 	while (stack)
 	{
-		printf("stack->data %d\n", stack->data);
 		if (stack->data > max)
 		{
 			max = stack->data;
@@ -48,23 +47,32 @@ int	stack_len(t_stack *stack)
 	return (count);
 }
 
-void current_index(t_stack *a)
+void	current_index(t_stack *a)
 {
-	int i;
-	int median;
+	int	i;
+	int	median;
 
+	// printf("test\n");
+	// print_stack(a, stack_len(a));
 	i = 0;
 	if (!a)
 		return ;
 	median = stack_len(a) / 2;
+	// printf("stack_len %d\n", stack_len(a));
+	// printf("median %d\n", median);
 	while (a)
 	{
+		// printf("a->data %d\n", a->data);
+
 		a->index = i;
 		if (i <= median)
 			a->is_above_median = 1;
 		else
 			a->is_above_median = 0;
-		i++;
+		// printf("a->index %d\n", a->index);
+		// printf("a->is_above_median %d\n", a->is_above_median);
+		a = a->next;
+		++i;
 	}
 }
 
@@ -89,14 +97,14 @@ static void	set_target_a(t_stack *a, t_stack *b)
 			current_b = current_b->next;
 		}
 		if (best_match_index == LONG_MIN)
-			a->target = find_max(b);
+			a->target = find_max_number(b);
 		else
 			a->target = target;
 		a = a->next;
 	}
 }
 
-static void	cost_analysis_a(t_stack *a, t_stack *b)
+static void	calc_pushcost_a(t_stack *a, t_stack *b)
 {
 	int	len_a;
 	int	len_b;
@@ -135,13 +143,48 @@ static void	define_cheapest(t_stack *a)
 	cheapest_node->is_cheapest = 1;
 }
 
-void create_node_a(t_stack **a, t_stack **b)
+void	set_target_b(t_stack *a, t_stack *b)
+{
+	t_stack	*current_a;
+	t_stack	*target;
+	int		best_match_index;
+
+	while (b)
+	{
+		best_match_index = INT_MAX;
+		current_a = a;
+		while (current_a)
+		{
+			if (current_a->data > b->data
+				&& current_a->data < best_match_index)
+			{
+				best_match_index = current_a->data;
+				target = current_a;
+			}
+			current_a = current_a->next;
+		}
+		if (best_match_index == INT_MAX)
+			b->target = find_min(a);
+		else
+			b->target = target;
+		b = b->next;
+	}
+}
+
+void create_node_a(t_stack *a, t_stack *b)
 {
 	current_index(a);
 	current_index(b);
 	set_target_a(a, b);
 	calc_pushcost_a(a, b);
 	define_cheapest(a);
+}
+
+void	create_node_b(t_stack *a, t_stack *b)
+{
+	current_index(a);
+	current_index(b);
+	set_target_b(a, b);
 }
 
 t_stack	*find_cheapest(t_stack *a)
@@ -155,6 +198,26 @@ t_stack	*find_cheapest(t_stack *a)
 		a = a->next;
 	}
 	return (NULL);
+}
+
+t_stack	*find_min(t_stack *a)
+{
+	int		min;
+	t_stack	*min_node;
+
+	if (!a)
+		return (NULL);
+	min = INT_MAX;
+	while (a)
+	{
+		if (a->data < min)
+		{
+			min = a->data;
+			min_node = a;
+		}
+		a = a->next;
+	}
+	return (min_node);
 }
 
 void	rotate_a_b(t_stack **a, t_stack **b, t_stack *cheapest)
@@ -172,6 +235,8 @@ void	rev_rotate_a_b(t_stack **a, t_stack **b, t_stack *cheapest)
 	current_index(*a);
 	current_index(*b);
 }
+
+
 
 void	node_to_top(t_stack **a, t_stack *node, char stack_name)
 {
@@ -194,11 +259,22 @@ void	node_to_top(t_stack **a, t_stack *node, char stack_name)
 	}
 }
 
+void	move_b_to_a(t_stack **a, t_stack **b)
+{
+	// printf("b->data %d\n", (*b)->data)
+	// printf("a\n");
+	// print_stack(*a, stack_len(*a));
+	// printf("b\n");
+	// print_stack(*b, stack_len(*b));
+	node_to_top(a, (*b)->target, 'a');
+	pa(a, b);
+}
+
 void	move_a_to_b(t_stack **a, t_stack **b)
 {
 	t_stack	*cheapest;
 
-	cheapest = find_cheapest(a);
+	cheapest = find_cheapest(*a);
 	if (cheapest->is_above_median == 1 && cheapest->target->is_above_median == 1)
 		rotate_a_b(a, b, cheapest);
 	else if (cheapest->is_above_median == 0 && cheapest->target->is_above_median == 0)
@@ -208,9 +284,19 @@ void	move_a_to_b(t_stack **a, t_stack **b)
 	pb(b, a);
 }
 
-void sort_stacks(t_stack **a, t_stack **b)
+void	min_on_top(t_stack **a)
 {
+	while((*a)->data != find_min(*a)->data)
+	{
+		if (find_min(*a)->is_above_median == 1)
+			ra(a);
+		else
+			rra(a);
+	}
+}
 
+void	sort_stacks(t_stack **a, t_stack **b)
+{
 	int len_a;
 
 	len_a = check_input(*a);
@@ -223,26 +309,28 @@ void sort_stacks(t_stack **a, t_stack **b)
 		create_node_a(*a, *b);
 		move_a_to_b(a, b);
 	}
-	sort_three(a);
+	sort_three_el(a);
+
+	// print_stack(*a, stack_len(*a));
+	// print_stack(*b, stack_len(*b));
 	while (*b)
 	{
-		init_nodes_b(*a, *b);
+		create_node_b(*a, *b);
 		move_b_to_a(a, b);
 	}
 	current_index(*a);
 	min_on_top(a);
 }
 
-void sort_three_el(t_stack **a)
+void	sort_three_el(t_stack **a)
 {
-    t_stack *biggest;
+	t_stack *biggest;
 
-    biggest = find_max_number(*a);
-    printf("biggest %d\n", biggest->data);
-    if (biggest == *a)
-        ra(a);
-    else if ((*a)->next == biggest)
-        rra(a);
-    if ((*a)->data > (*a)->next->data)
-        sa(a);
+	biggest = find_max_number(*a);
+	if (biggest == *a)
+		ra(a);
+	else if ((*a)->next == biggest)
+		rra(a);
+	if ((*a)->data > (*a)->next->data)
+		sa(a);
 }

@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:50:12 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/15 14:31:32 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:17:00 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void print_stack(t_stack *lst, int s)
 	}
 }
 
-int is_stack_sorted(t_stack *stack)
+int	is_stack_sorted(t_stack *stack)
 {
 	if (!stack)
 		return (ft_printf("no stack\n"), 0);
@@ -44,37 +44,24 @@ int main(int argc, char **argv)
 {
 	t_stack *a;
 	t_stack *b;
-	int len;
-	char **array;
 
-	len = 0;
 	a = NULL;
 	b = NULL;
-	array = NULL;
-	if (argc < 2)
-		return (0);
-	if (argc == 2)
-		array = ft_split(argv[1], ' ');
-	len = check_input(array);
-	if (!len)
-		return (ft_printf("Error\n"), 0);
-
-	init_stack(&a, array);
-	printf("len %d\n", len);
+	if (argc == 1 || (argc == 2 && !argv[1][0]))
+		return (1);
+	else if (argc == 2)
+		argv = ft_split(argv[1], ' ');
+	init_stack(&a, argv);
 	if (!is_stack_sorted(a))
 	{
-		if (len == 2)
+		if (stack_len(a) == 2)
 			sa(&a);
-		if (len == 3)
+		else if (stack_len(a) == 3)
 			sort_three_el(&a);
-		// printf("no\n");
-		// else
-		// sort_stacks(&a, &b);
+		else
+			sort_stacks(&a, &b);
 	}
-	print_stack(a, len - 1);
-	print_stack(b, 1);
-	free_array(array);
-
+	print_stack(a, stack_len(a));
 	free_stack(&a);
 	free_stack(&b);
 
