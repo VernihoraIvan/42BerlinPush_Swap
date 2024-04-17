@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 13:32:44 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/16 16:10:17 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/17 13:31:08 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,70 @@ void create_node_a(t_stack **a, t_stack **b)
 	set_target_a(a, b);
 	calc_pushcost_a(a, b);
 	define_cheapest(a);
+}
+
+t_stack	*find_cheapest(t_stack *a)
+{
+	if (!a)
+		return (NULL);
+	while (a)
+	{
+		if (a->is_cheapest == 1)
+			return (a);
+		a = a->next;
+	}
+	return (NULL);
+}
+
+void	rotate_a_b(t_stack **a, t_stack **b, t_stack *cheapest)
+{
+	while(*b != cheapest->target && *a != cheapest)
+		rr(a, b);
+	current_index(*a);
+	current_index(*b);
+}
+
+void	rev_rotate_a_b(t_stack **a, t_stack **b, t_stack *cheapest)
+{
+	while(*b != cheapest->target && *a != cheapest)
+		rrr(a, b);
+	current_index(*a);
+	current_index(*b);
+}
+
+void	node_to_top(t_stack **a, t_stack *node, char stack_name)
+{
+	while (*a != node)
+	{
+		if (stack_name == 'a')
+		{
+			if (node->is_above_median == 1)
+				ra(a);
+			else
+				rra(a);
+		}
+		else if (stack_name == 'b')
+		{
+			if (node->is_above_median == 1)
+				rb(a);
+			else
+				rrb(a);
+		}
+	}
+}
+
+void	move_a_to_b(t_stack **a, t_stack **b)
+{
+	t_stack	*cheapest;
+
+	cheapest = find_cheapest(a);
+	if (cheapest->is_above_median == 1 && cheapest->target->is_above_median == 1)
+		rotate_a_b(a, b, cheapest);
+	else if (cheapest->is_above_median == 0 && cheapest->target->is_above_median == 0)
+		rev_rotate_a_b(a, b, cheapest);
+	node_to_top(a, cheapest, 'a');
+	node_to_top(b, cheapest->target, 'b');
+	pb(b, a);
 }
 
 void sort_stacks(t_stack **a, t_stack **b)
