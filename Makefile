@@ -6,7 +6,7 @@
 #    By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 14:56:28 by iverniho          #+#    #+#              #
-#    Updated: 2024/04/15 14:03:51 by iverniho         ###   ########.fr        #
+#    Updated: 2024/04/17 18:24:30 by iverniho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,20 +18,27 @@ CFLAGS = -Wall -Wextra -Werror
 SRC = push_swap.c stack_utils.c utils.c operations_a.c operations_b.c operations_c.c \
 	operations_d.c algorithm.c \
 
-LIB = libft/libft.a
+LIBFT = libft/
+LIB := libft/libft.a
 PRINTF := printf/libftprintf.a
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	@make -C $(LIBFT)
+	@make -C printf/
 	$(CC) -g $(CFLAGS) $(OBJ) $(LIB) $(PRINTF) -o $(NAME)
 
-lean:
+clean:
 	rm -rf $(OBJ)
+	rm -rf $(LIBFT)/*.o
+	rm -rf printf/*.o
 
 fclean: clean
 	rm -f $(NAME)
+	rm -f $(LIBFT)/libft.a
+	rm -f printf/libftprintf.a
 
 re: fclean all
 
