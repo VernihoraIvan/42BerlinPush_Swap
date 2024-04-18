@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:00:00 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/09 11:16:34 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/18 12:59:20 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,3 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return (len);
 }
-
-// int	main(void)
-// {
-// 	char	*a;
-
-// 	a = "hello world";
-// 	printf("total count %d\n",ft_printf("digit: %d, %c, %s, percent %% ponter: %p unsigned int: %u hex lower: %x hex upper: %X\n", 7177, 'h', a, a, -55, -2, -2));
-// 	printf("total count %d",printf("digit: %d, %c, %s, percent %% ponter: %p unsigned int: %u hex lower: %x hex upper: %X\n", 7177, 'h', a, a, -55, -2, -2));
-// }
-

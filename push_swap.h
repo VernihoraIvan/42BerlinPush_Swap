@@ -6,17 +6,17 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:50:09 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/18 12:14:17 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:34:26 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
-#define PUSH_SWAP_H
+# define PUSH_SWAP_H
 
-#include <limits.h>
-#include "libft/libft.h"
-#include "printf/ft_printf.h"
-#include <stdio.h>
+# include <limits.h>
+# include "libft/libft.h"
+# include "printf/ft_printf.h"
+# include <stdio.h>
 
 typedef struct s_stack
 {
@@ -28,7 +28,7 @@ typedef struct s_stack
 	struct s_stack	*target;
 	struct s_stack	*next;
 	struct s_stack	*prev;
-} t_stack;
+}					t_stack;
 
 t_stack	*find_last(t_stack *lst);
 int		init_stack(t_stack **stack, char **array);
@@ -55,4 +55,17 @@ void	pb(t_stack **a, t_stack **b);
 int		stack_len(t_stack *stack);
 void	print_stack(t_stack *lst, int s);
 t_stack	*find_min(t_stack *a);
+t_stack	*find_max_number(t_stack *stack);
+void	define_cheapest(t_stack *a);
+t_stack	*find_cheapest(t_stack *a);
+t_stack	*find_min(t_stack *a);
+void	current_index(t_stack *a);
+void	set_target_a(t_stack *a, t_stack *b);
+void	calc_pushcost_a(t_stack *a, t_stack *b);
+void	define_cheapest(t_stack *a);
+void	set_target_b(t_stack *a, t_stack *b);
+void	node_to_top(t_stack **a, t_stack *node, char stack_name);
+void	min_on_top(t_stack **a);
+void	move_a_to_b(t_stack **a, t_stack **b);
+void	sort_three_el(t_stack **a);
 #endif

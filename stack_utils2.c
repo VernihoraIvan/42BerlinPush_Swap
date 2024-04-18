@@ -1,49 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operations_d.c                                     :+:      :+:    :+:   */
+/*   stack_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/15 14:02:56 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/18 13:13:48 by iverniho         ###   ########.fr       */
+/*   Created: 2024/04/18 14:35:01 by iverniho          #+#    #+#             */
+/*   Updated: 2024/04/18 14:35:59 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	push(t_stack **dst, t_stack **src)
+t_stack	*find_last(t_stack *lst)
 {
-	t_stack	*tmp;
+	t_stack	*temp;
 
-	if (!*src)
-		return ;
-	tmp = *src;
-	*src = (*src)->next;
-	if (*src)
-		(*src)->prev = NULL;
-	tmp->prev = NULL;
-	if (!*dst)
-	{
-		*dst = tmp;
-		tmp->next = NULL;
-	}
-	else
-	{
-		tmp->next = *dst;
-		tmp->next->prev = tmp;
-		*dst = tmp;
-	}
+	if (!lst)
+		return (NULL);
+	temp = lst;
+	while (temp->next)
+		temp = temp->next;
+	return (temp);
 }
 
-void	pa(t_stack **a, t_stack **b)
+void	move_b_to_a(t_stack **a, t_stack **b)
 {
-	push(a, b);
-	ft_printf("pa\n");
-}
-
-void	pb(t_stack **b, t_stack **a)
-{
-	push(b, a);
-	ft_printf("pb\n");
+	node_to_top(a, (*b)->target, 'a');
+	pa(a, b);
 }

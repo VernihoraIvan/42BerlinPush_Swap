@@ -6,29 +6,17 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:11:28 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/18 12:52:50 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:35:27 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack	*find_last(t_stack *lst)
-{
-	t_stack	*temp;
-
-	if (!lst)
-		return (NULL);
-	temp = lst;
-	while (temp->next)
-		temp = temp->next;
-	return (temp);
-}
-
-long	ft_atol(const char *str)
+long static	ft_atol(const char *str)
 {
 	long	res;
-	int	i;
-	int	sign;
+	int		i;
+	int		sign;
 
 	sign = 1;
 	res = 0;
@@ -71,7 +59,7 @@ int	init_stack(t_stack **stack, char **array)
 		}
 		c = ft_atol(array[i]);
 		if (c > INT_MAX || c < INT_MIN)
-			return (ft_printf("Error\nNumber out of range\n"),0);
+			return (ft_printf("Error\nNumber out of range\n"), 0);
 		c = (int)c;
 		if (check_duplicat(*stack, c) == 0)
 			return (free_stack(stack), 0);
