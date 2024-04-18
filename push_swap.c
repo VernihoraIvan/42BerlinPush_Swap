@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:50:12 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/17 17:17:00 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/18 11:44:54 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,29 @@ void print_stack(t_stack *lst, int s)
 int	is_stack_sorted(t_stack *stack)
 {
 	if (!stack)
-		return (ft_printf("no stack\n"), 0);
+		return (0);
 	while (stack->next)
 	{
 		if (stack->data > stack->next->data)
-			return (ft_printf("not sorted\n"), 0);
+			return (0);
 		stack = stack->next;
 	}
-	return (ft_printf("sorted\n"), 1);
+	return (1);
 }
+
+// void	free_array(char **array)
+// {
+// 	int i;
+
+// 	i = 0;
+// 	while (array[i])
+// 	{
+// 		free(array[i]);
+// 		i++;
+// 	}
+// 	free(array);
+// }
+
 
 int main(int argc, char **argv)
 {
@@ -61,7 +75,9 @@ int main(int argc, char **argv)
 		else
 			sort_stacks(&a, &b);
 	}
-	print_stack(a, stack_len(a));
+	// print_stack(a, stack_len(a));
+
+	free_array(argv);
 	free_stack(&a);
 	free_stack(&b);
 

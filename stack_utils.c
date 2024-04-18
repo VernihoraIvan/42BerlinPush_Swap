@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:11:28 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/17 15:18:50 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/18 11:55:38 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	append_node(t_stack **stack, int c)
 		return ;
 	new->next = NULL;
 	new->data = c;
+	new->is_cheapest = 0;
 	// printf("new->data = %d\n", new->data);
 	if (!(*stack))
 	{

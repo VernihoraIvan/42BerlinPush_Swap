@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 13:32:44 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/17 17:54:54 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/18 11:54:19 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ static void	define_cheapest(t_stack *a)
 {
 	int		cheapest_cost;
 	t_stack	*cheapest_node;
+
 	if (!a)
 		return ;
 	cheapest_cost = INT_MAX;
