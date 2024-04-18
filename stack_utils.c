@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:11:28 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/18 12:14:45 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/18 12:52:50 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,41 @@ t_stack	*find_last(t_stack *lst)
 	return (temp);
 }
 
+long	ft_atol(const char *str)
+{
+	long	res;
+	int	i;
+	int	sign;
+
+	sign = 1;
+	res = 0;
+	i = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	if ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+		return (res);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res = res * 10 + (str[i] - '0');
+		i++;
+	}
+	return (res * sign);
+}
+
 int	init_stack(t_stack **stack, char **array)
 {
-	int	i;
-	int	j;
-	int	c;
+	int		i;
+	int		j;
+	long	c;
 
-	i = 0;
-
-	while (array[i])
+	i = -1;
+	while (array[++i])
 	{
 		j = 0;
 		while (array[i][j])
@@ -40,24 +66,16 @@ int	init_stack(t_stack **stack, char **array)
 			if (array[i][j] == '-')
 				j++;
 			if (!ft_isdigit(array[i][j]))
-			{
-				ft_printf("Error\nOnly digits allowed\n");
-				return (0);
-				// exit(EXIT_FAILURE);
-			}
+				return (ft_printf("Error\nOnly digits allowed\n"), 0);
 			j++;
 		}
-		// if (!ft_isdigit(array[i]))
-		// 	return(ft_printf("Error\nOnly digits allowed\n"));
-		// 	exit(EXIT_FAILURE);
-		c = ft_atoi(array[i]);
+		c = ft_atol(array[i]);
+		if (c > INT_MAX || c < INT_MIN)
+			return (ft_printf("Error\nNumber out of range\n"),0);
+		c = (int)c;
 		if (check_duplicat(*stack, c) == 0)
-		{
-			free_stack(stack);
-			return (0);
-		}
+			return (free_stack(stack), 0);
 		append_node(stack, c);
-		i++;
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:50:12 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/18 12:15:48 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/18 12:55:29 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,14 @@ int main(int argc, char **argv)
 	a = NULL;
 	b = NULL;
 	if (argc == 1 || (argc == 2 && !argv[1][0]))
-		return (1);
+		return (ft_printf("Error\n"), 1);
 	else if (argc == 2)
 		argv = ft_split(argv[1], ' ');
+	if (!argv[0])
+	{
+		free_array(argv);
+		return (ft_printf("Error\n"), 1);
+	}
 	if (!init_stack(&a, argv))
 	{
 		free_array(argv);
@@ -66,6 +71,7 @@ int main(int argc, char **argv)
 		else
 			sort_stacks(&a, &b);
 	}
+	print_stack(a, stack_len(a));
 	free_array(argv);
 	free_stack(&a);
 	free_stack(&b);
