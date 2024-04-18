@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:11:28 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/18 11:55:38 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/18 12:14:45 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,42 @@ t_stack	*find_last(t_stack *lst)
 	return (temp);
 }
 
-void	init_stack(t_stack **stack, char **array)
+int	init_stack(t_stack **stack, char **array)
 {
 	int	i;
+	int	j;
 	int	c;
 
 	i = 0;
+
 	while (array[i])
 	{
+		j = 0;
+		while (array[i][j])
+		{
+			if (array[i][j] == '-')
+				j++;
+			if (!ft_isdigit(array[i][j]))
+			{
+				ft_printf("Error\nOnly digits allowed\n");
+				return (0);
+				// exit(EXIT_FAILURE);
+			}
+			j++;
+		}
+		// if (!ft_isdigit(array[i]))
+		// 	return(ft_printf("Error\nOnly digits allowed\n"));
+		// 	exit(EXIT_FAILURE);
 		c = ft_atoi(array[i]);
 		if (check_duplicat(*stack, c) == 0)
 		{
 			free_stack(stack);
-			return ;
+			return (0);
 		}
 		append_node(stack, c);
 		i++;
 	}
-
+	return (1);
 }
 
 void	append_node(t_stack **stack, int c)
@@ -57,7 +75,6 @@ void	append_node(t_stack **stack, int c)
 	new->next = NULL;
 	new->data = c;
 	new->is_cheapest = 0;
-	// printf("new->data = %d\n", new->data);
 	if (!(*stack))
 	{
 		*stack = new;

@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:50:12 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/18 11:44:54 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/18 12:15:48 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,6 @@ int	is_stack_sorted(t_stack *stack)
 	return (1);
 }
 
-// void	free_array(char **array)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	while (array[i])
-// 	{
-// 		free(array[i]);
-// 		i++;
-// 	}
-// 	free(array);
-// }
-
-
 int main(int argc, char **argv)
 {
 	t_stack *a;
@@ -65,7 +51,12 @@ int main(int argc, char **argv)
 		return (1);
 	else if (argc == 2)
 		argv = ft_split(argv[1], ' ');
-	init_stack(&a, argv);
+	if (!init_stack(&a, argv))
+	{
+		free_array(argv);
+		free_stack(&a);
+		return (1);
+	}
 	if (!is_stack_sorted(a))
 	{
 		if (stack_len(a) == 2)
@@ -75,11 +66,8 @@ int main(int argc, char **argv)
 		else
 			sort_stacks(&a, &b);
 	}
-	// print_stack(a, stack_len(a));
-
 	free_array(argv);
 	free_stack(&a);
 	free_stack(&b);
-
 	return (0);
 }

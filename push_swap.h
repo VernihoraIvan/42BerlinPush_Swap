@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:50:09 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/17 17:53:14 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/18 12:14:17 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_stack
 } t_stack;
 
 t_stack	*find_last(t_stack *lst);
-void	init_stack(t_stack **stack, char **array);
+int		init_stack(t_stack **stack, char **array);
 void	append_node(t_stack **stack, int c);
 void	free_stack(t_stack **stack);
 int		check_input(t_stack *stack);
