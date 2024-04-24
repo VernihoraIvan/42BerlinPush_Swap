@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:11:28 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/18 14:35:27 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:59:32 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	init_stack(t_stack **stack, char **array)
 		{
 			if (array[i][j] == '-')
 				j++;
-			if (!ft_isdigit(array[i][j]))
+			if (ft_isdigit(array[i][j]) == 0)
 				return (ft_printf("Error\nOnly digits allowed\n"), 0);
 			j++;
 		}

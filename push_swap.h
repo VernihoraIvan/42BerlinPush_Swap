@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:50:09 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/18 14:34:26 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/22 14:30:24 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	rrr(t_stack **a, t_stack **b);
 void	pa(t_stack **a, t_stack **b);
 void	pb(t_stack **a, t_stack **b);
 int		stack_len(t_stack *stack);
-void	print_stack(t_stack *lst, int s);
+void	print_stack(t_stack *lst);
 t_stack	*find_min(t_stack *a);
 t_stack	*find_max_number(t_stack *stack);
 void	define_cheapest(t_stack *a);
@@ -68,4 +68,7 @@ void	node_to_top(t_stack **a, t_stack *node, char stack_name);
 void	min_on_top(t_stack **a);
 void	move_a_to_b(t_stack **a, t_stack **b);
 void	sort_three_el(t_stack **a);
+void	move_b_to_a(t_stack **a, t_stack **b);
+void	rotate_a_b(t_stack **a, t_stack **b, t_stack *cheapest);
+void	rev_rotate_a_b(t_stack **a, t_stack **b, t_stack *cheapest);
 #endif
