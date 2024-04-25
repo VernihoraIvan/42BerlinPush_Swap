@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:50:12 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/25 13:45:57 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:00:56 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int static	free_program(t_stack **a, t_stack **b, char **argv, char s)
 {
 	if (s == '1')
 	{
-		ft_printf("Error\n");
+		ft_printf("Error1\n");
 		free_array(argv);
 	}
 	if (s == '2')
@@ -55,67 +55,36 @@ int static	free_program(t_stack **a, t_stack **b, char **argv, char s)
 	return (1);
 }
 
-// static void	initStack(t_stack **stack, int argc, char **argv)
-// {
-// 	t_stack	*new;
-// 	char	**args;
-// 	int		i;
+void	duplicate_argv_to_array(char **array, char **argv)
+{
+	int		i;
+	int		j;
 
-// 	i = 0;
-// 	if (argc == 2)
-// 		args = ft_split(argv[1], ' ');
-// 	else
-// 	{
-// 		i = 1;
-// 		args = argv;
-// 	}
-// 	while (args[i])
-// 	{
-// 		new = ft_lstnew(ft_atoi(args[i]));
-// 		ft_lstadd_back(stack, new);
-// 		i++;
-// 	}
-// 	index_stack(stack);
-// 	if (argc == 2)
-// 		ft_free(args);
-// }
+	i = 0;
+	j = 1;
+	while (argv[j])
+		array[i++] = ft_strdup(argv[j++]);
+}
 
 int	main(int argc, char **argv)
 {
 	t_stack	*a;
 	t_stack	*b;
 	char	**array;
-	int		i;
 
-	a = NULL;
-	b = NULL;
-	i = 1;
-	array = malloc(sizeof(char *) * (argc  ));
+	a = ((b = NULL, array = NULL), NULL);
 	if (argc == 1 || (argc == 2 && !argv[1][0]))
 		return (ft_printf("Error\n"), 1);
 	else if (argc == 2)
 		array = ft_split(argv[1], ' ');
-	else if (argc > 2)
-	{
-		while (argv[i])
-		{
-
-			array[i] = ft_strdup(argv[i]);
-			printf("array[%d]: %s\n", i, array[i]);
-			i++;
-		}
-	}
-	if (!array[0])
-		return (free_program(&a, &b, array, '1'));
-	// if (!init_stack(&a, &array[0]) && !init_stack(&a, array + 1))
-	if (array == NULL || array + 1 == NULL)
-		return (free_program(&a, &b, array, '1'));
-	if (!init_stack(&a, &array[0]) && !init_stack(&a, array + 1))
-		return (free_program(&a, &b, array, '1'));
-
+	else
+		array = (char **)malloc(sizeof(char *) * (argc));
+	if (argc > 2)
+		duplicate_argv_to_array(array, argv);
+	if (!array[0] || !init_stack(&a, array))
+		return (free_program(&a, &b, array, '1'), 1);
 	if (!is_stack_sorted(a))
 	{
-
 		if (stack_len(a) == 2)
 			sa(&a);
 		else if (stack_len(a) == 3)
@@ -123,7 +92,5 @@ int	main(int argc, char **argv)
 		else
 			sort_stacks(&a, &b);
 	}
-	print_stack(a);
-	free_program(&a, &b, array, '2');
-	return (0);
+	return (free_program(&a, &b, array, '2'), 0);
 }

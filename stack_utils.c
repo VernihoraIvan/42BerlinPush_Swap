@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:11:28 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/25 13:41:45 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:12:46 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,17 @@ int	init_stack(t_stack **stack, char **array)
 	int		j;
 	long	c;
 
-	i = 0;
+	i = -1;
+	c = 0;
 	while (array[++i])
 	{
-
-		// printf("array[%d]: %s\n", i, array[i]);
-		j = 0;
-		while (array[i][j])
+		j = -1;
+		while (array[i][++j])
 		{
 			if (array[i][j] == '-')
 				j++;
 			if (ft_isdigit(array[i][j]) != 1)
 				return (ft_printf("Error\nOnly digits allowed\n"), 0);
-			j++;
 		}
 		c = ft_atol(array[i]);
 		if (c > INT_MAX || c < INT_MIN)
@@ -75,7 +73,6 @@ void	append_node(t_stack **stack, int c)
 	t_stack	*new;
 	t_stack	*last;
 
-	printf("c: %d\n", c);
 	if (!stack)
 		return ;
 	new = (t_stack *)malloc(sizeof(t_stack));
