@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:11:28 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/24 21:09:31 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/25 13:41:45 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,11 @@ int	init_stack(t_stack **stack, char **array)
 	int		j;
 	long	c;
 
-	i = -1;
+	i = 0;
 	while (array[++i])
 	{
+
+		// printf("array[%d]: %s\n", i, array[i]);
 		j = 0;
 		while (array[i][j])
 		{
@@ -73,6 +75,7 @@ void	append_node(t_stack **stack, int c)
 	t_stack	*new;
 	t_stack	*last;
 
+	printf("c: %d\n", c);
 	if (!stack)
 		return ;
 	new = (t_stack *)malloc(sizeof(t_stack));

@@ -6,7 +6,7 @@
 #    By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 14:56:28 by iverniho          #+#    #+#              #
-#    Updated: 2024/04/18 14:35:18 by iverniho         ###   ########.fr        #
+#    Updated: 2024/04/25 11:58:49 by iverniho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@make -C $(LIBFT)
+	@make bonus -C $(LIBFT)
 	@make -C printf/
 	$(CC) -g $(CFLAGS) $(OBJ) $(LIB) $(PRINTF) -o $(NAME)
 
