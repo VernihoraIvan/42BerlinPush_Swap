@@ -8,6 +8,7 @@ Pushswap is a sorting algorithm that operates on two stacks, named `A` and `B`. 
 ## Usage
 To utilize Pushswap Mechanical Turk, follow these steps:
 1. Clone this repository
+	
 	git clone https://github.com/VernihoraIvan/42BerlinPush_Swap.git
 3. Navigate to the cloned directory:
 4. Run the Pushswap algorithm that uses Turk algo to sort the stack:
